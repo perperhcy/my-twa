@@ -14,12 +14,12 @@ function App() {
         <TonConnectButton />
 
         <div className='Card'>
-          <b>Counter Address</b>
+          <b>1.Counter Address</b>
           <div className='Hint'>{address?.slice(0, 30) + '...'}</div>
         </div>
 
         <div className='Card'>
-          <b>Counter Value</b>
+          <b>2.Counter Value</b>
           <div>{value ?? 'Loading...'}</div>
         </div>
 
