@@ -6,73 +6,77 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <h1>Select User to Forward Message</h1>
-    <button onclick="showForwardDialog()">Forward Message</button>
+    <h1>Telegram Mini App</h1>
+    <p>Click the button below to forward the message.</p>
+    <button id="forwardButton">Forward Message</button>
 
     <script>
-        function showForwardDialog() {
-            // 获取 Telegram Web App 上下文
-            let tg = window.Telegram.WebApp;
+        // 初始化 Web App
+        Telegram.WebApp.ready();
 
-            // 使用 Telegram Web App API 显示转发弹窗
-            tg.MainButton.show();
-            tg.MainButton.setText("Forward Message");
+        document.getElementById('forwardButton').addEventListener('click', function() {
+            // 显示主按钮并设置文本
+            Telegram.WebApp.MainButton.text = "Forwarding...";
+            Telegram.WebApp.MainButton.show();
 
-            tg.MainButton.onClick(function() {
-                tg.MainButton.setText("Forwarding...");
+            // 获取当前 Web App 上下文
+            let tg = Telegram.WebApp;
+            let userId = tg.initDataUnsafe.user.id;
+            
+            // 示例 message_id，需要替换为实际要转发的消息 ID
+            let messageId = 12345; 
 
-                // 这里应该调用你的后端服务获取 message_id 和 from_chat_id
-                let message_id = 123; // 需要转发的消息 ID
-                let from_chat_id = tg.initDataUnsafe.user.id; // 当前用户的 chat_id
+            // 打开 Telegram 转发功能
+            openForwardDialog(userId, messageId);
+        });
 
-                tg.showPopup({
-                    title: "Forward Message",
-                    description: "Select the user to forward the message",
-                    buttons: [
-                        { id: 'yes', type: 'default', text: 'Yes' },
-                        { id: 'no', type: 'close', text: 'No' }
-                    ]
-                }, (button_id) => {
-                    if (button_id === 'yes') {
-                        // 调用转发 API
-                        forwardMessage(from_chat_id, message_id);
-                    } else {
-                        tg.MainButton.hide();
-                    }
-                });
-            });
+        function openForwardDialog(userId, messageId) {
+            Telegram.WebApp.MainButton.setText("Select chat to forward");
+            
+            // 在此显示自定义弹窗或界面，引导用户选择目标聊天
+            alert("Please select a chat to forward the message.");
+
+            // 这里你需要引导用户在 Telegram 客户端中选择要转发的聊天
+            // 完成后，调用 forwardMessage 函数进行转发
+
+            // 示例中，假设用户选择了目标 chat_id
+            let targetChatId = prompt("Enter the target chat ID:");
+
+            if (targetChatId) {
+                forwardMessage(targetChatId, userId, messageId);
+            } else {
+                Telegram.WebApp.MainButton.hide();
+            }
         }
 
-        function forwardMessage(from_chat_id, message_id) {
-            let tg = window.Telegram.WebApp;
-
-            // 调用 Telegram API 转发消息
-            fetch(`https://api.telegram.org/bot<YOUR_BOT_API_TOKEN>/forwardMessage`, {
+        function forwardMessage(targetChatId, fromChatId, messageId) {
+            let apiUrl = `https://api.telegram.org/bot<YOUR_BOT_API_TOKEN>/forwardMessage`;
+            fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    chat_id: from_chat_id,
-                    from_chat_id: from_chat_id,
-                    message_id: message_id
+                    chat_id: targetChatId,
+                    from_chat_id: fromChatId,
+                    message_id: messageId
                 })
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Message forwarded:', data);
-                tg.MainButton.setText("Message Forwarded");
-                setTimeout(() => tg.MainButton.hide(), 3000);
+                if (data.ok) {
+                    Telegram.WebApp.MainButton.setText("Message Forwarded");
+                } else {
+                    Telegram.WebApp.MainButton.setText("Error");
+                }
+                setTimeout(() => Telegram.WebApp.MainButton.hide(), 3000);
             })
             .catch(error => {
                 console.error('Error forwarding message:', error);
-                tg.MainButton.setText("Error");
-                setTimeout(() => tg.MainButton.hide(), 3000);
+                Telegram.WebApp.MainButton.setText("Error");
+                setTimeout(() => Telegram.WebApp.MainButton.hide(), 3000);
             });
         }
-
-        // 初始化 Web App
-        Telegram.WebApp.ready();
     </script>
 </body>
 </html>
