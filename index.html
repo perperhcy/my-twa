@@ -1,13 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Telegram Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <h1>Select User to Forward Message</h1>
+    <button onclick="forwardMessage()">Forward Message</button>
+
+    <script>
+        function forwardMessage() {
+            // 获取 Telegram Web App 上下文
+            let tg = window.Telegram.WebApp;
+
+            // 打开 Telegram 的转发界面
+            tg.openForwardDialog({
+                from_chat_id: tg.initDataUnsafe.user.id,
+                message_id: 123 // 这里填入你要转发的消息 ID
+            }, (result) => {
+                console.log('Forward result:', result);
+                // 处理转发结果
+            });
+        }
+
+        // 初始化 Web App
+        Telegram.WebApp.ready();
+    </script>
+</body>
 </html>
