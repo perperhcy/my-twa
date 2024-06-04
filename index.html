@@ -9,6 +9,7 @@
 <body>
     <h1>Welcome to Telegram Mini App</h1>
     <button id="shareButton">Share</button>
+    <button id="forwardButton">Forward</button>
 
     <script>
         // 等待 Telegram Web App 准备就绪
@@ -16,6 +17,7 @@
 
         // 获取分享按钮
         const shareButton = document.getElementById('shareButton');
+        const forwardButton = document.getElementById('forwardButton');
 
         // 分享按钮点击事件处理程序
         shareButton.addEventListener('click', () => {
@@ -37,14 +39,13 @@
                 ],
             }).then(buttonId => {
                 if (buttonId === "share") {
-                    // 定义分享内容
+                    // 调用分享 API
                     const shareOptions = {
-                        url: "https://example.com",  // 分享的链接
-                        text: "Check out this awesome content!",  // 分享的文本内容
+                        text: "Check out this awesome content! https://example.com"
                     };
 
-                    // 调用分享 API
-                    Telegram.WebApp.openInvoice(shareOptions)
+                    // 使用分享文本方法
+                    Telegram.WebApp.shareText(shareOptions.text)
                         .then(result => {
                             console.log("Share successful:", result);
                         })
@@ -53,6 +54,48 @@
                         });
                 } else {
                     console.log("Share canceled");
+                }
+            });
+        });
+
+        // 转发按钮点击事件处理程序
+        forwardButton.addEventListener('click', () => {
+            const forwardMessageId = 123; // 要转发的消息ID，应该从实际的上下文中获取
+            const chatId = -123456789; // 目标聊天ID，应该从实际的上下文中获取
+
+            // 调用转发 API
+            Telegram.WebApp.showPopup({
+                title: "Forward this message",
+                message: "Do you want to forward this message?",
+                buttons: [
+                    {
+                        id: "forward",
+                        type: "default",
+                        text: "Forward",
+                    },
+                    {
+                        id: "cancel",
+                        type: "default",
+                        text: "Cancel",
+                    },
+                ],
+            }).then(buttonId => {
+                if (buttonId === "forward") {
+                    const forwardOptions = {
+                        message_id: forwardMessageId,
+                        from_chat_id: chatId,
+                        disable_notification: false
+                    };
+
+                    Telegram.WebApp.forwardMessage(forwardOptions)
+                        .then(result => {
+                            console.log("Forward successful:", result);
+                        })
+                        .catch(error => {
+                            console.error("Forward failed:", error);
+                        });
+                } else {
+                    console.log("Forward canceled");
                 }
             });
         });
