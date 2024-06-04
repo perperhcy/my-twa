@@ -2,81 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <h1>Telegram Mini App</h1>
-    <p>Click the button below to forward the message.</p>
-    <button id="forwardButton">Forward Message</button>
+    <h1>Welcome to Telegram Mini App</h1>
+    <button id="shareButton">Share</button>
 
     <script>
-        // 初始化 Web App
+        // 等待 Telegram Web App 准备就绪
         Telegram.WebApp.ready();
 
-        document.getElementById('forwardButton').addEventListener('click', function() {
-            // 显示主按钮并设置文本
-            Telegram.WebApp.MainButton.text = "Forwarding...";
-            Telegram.WebApp.MainButton.show();
+        // 获取分享按钮
+        const shareButton = document.getElementById('shareButton');
 
-            // 获取当前 Web App 上下文
-            let tg = Telegram.WebApp;
-            let userId = tg.initDataUnsafe.user.id;
-            
-            // 示例 message_id，需要替换为实际要转发的消息 ID
-            let messageId = 12345; 
+        // 分享按钮点击事件处理程序
+        shareButton.addEventListener('click', () => {
+            // 显示分享弹窗
+            Telegram.WebApp.showPopup({
+                title: "Share this content",
+                message: "Do you want to share this content?",
+                buttons: [
+                    {
+                        id: "share",
+                        type: "default",
+                        text: "Share",
+                    },
+                    {
+                        id: "cancel",
+                        type: "default",
+                        text: "Cancel",
+                    },
+                ],
+            }).then(buttonId => {
+                if (buttonId === "share") {
+                    // 定义分享内容
+                    const shareOptions = {
+                        url: "https://example.com",  // 分享的链接
+                        text: "Check out this awesome content!",  // 分享的文本内容
+                    };
 
-            // 打开 Telegram 转发功能
-            openForwardDialog(userId, messageId);
-        });
-
-        function openForwardDialog(userId, messageId) {
-            Telegram.WebApp.MainButton.setText("Select chat to forward");
-            
-            // 在此显示自定义弹窗或界面，引导用户选择目标聊天
-            alert("Please select a chat to forward the message.");
-
-            // 这里你需要引导用户在 Telegram 客户端中选择要转发的聊天
-            // 完成后，调用 forwardMessage 函数进行转发
-
-            // 示例中，假设用户选择了目标 chat_id
-            let targetChatId = prompt("Enter the target chat ID:");
-
-            if (targetChatId) {
-                forwardMessage(targetChatId, userId, messageId);
-            } else {
-                Telegram.WebApp.MainButton.hide();
-            }
-        }
-
-        function forwardMessage(targetChatId, fromChatId, messageId) {
-            let apiUrl = `https://api.telegram.org/bot<YOUR_BOT_API_TOKEN>/forwardMessage`;
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: targetChatId,
-                    from_chat_id: fromChatId,
-                    message_id: messageId
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    Telegram.WebApp.MainButton.setText("Message Forwarded");
+                    // 调用分享 API
+                    Telegram.WebApp.openInvoice(shareOptions)
+                        .then(result => {
+                            console.log("Share successful:", result);
+                        })
+                        .catch(error => {
+                            console.error("Share failed:", error);
+                        });
                 } else {
-                    Telegram.WebApp.MainButton.setText("Error");
+                    console.log("Share canceled");
                 }
-                setTimeout(() => Telegram.WebApp.MainButton.hide(), 3000);
-            })
-            .catch(error => {
-                console.error('Error forwarding message:', error);
-                Telegram.WebApp.MainButton.setText("Error");
-                setTimeout(() => Telegram.WebApp.MainButton.hide(), 3000);
             });
-        }
+        });
     </script>
 </body>
 </html>
