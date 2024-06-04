@@ -7,20 +7,67 @@
 </head>
 <body>
     <h1>Select User to Forward Message</h1>
-    <button onclick="forwardMessage()">Forward Message</button>
+    <button onclick="showForwardDialog()">Forward Message</button>
 
     <script>
-        function forwardMessage() {
+        function showForwardDialog() {
             // 获取 Telegram Web App 上下文
             let tg = window.Telegram.WebApp;
 
-            // 打开 Telegram 的转发界面
-            tg.openForwardDialog({
-                from_chat_id: tg.initDataUnsafe.user.id,
-                message_id: 123 // 这里填入你要转发的消息 ID
-            }, (result) => {
-                console.log('Forward result:', result);
-                // 处理转发结果
+            // 使用 Telegram Web App API 显示转发弹窗
+            tg.MainButton.show();
+            tg.MainButton.setText("Forward Message");
+
+            tg.MainButton.onClick(function() {
+                tg.MainButton.setText("Forwarding...");
+
+                // 这里应该调用你的后端服务获取 message_id 和 from_chat_id
+                let message_id = 123; // 需要转发的消息 ID
+                let from_chat_id = tg.initDataUnsafe.user.id; // 当前用户的 chat_id
+
+                tg.showPopup({
+                    title: "Forward Message",
+                    description: "Select the user to forward the message",
+                    buttons: [
+                        { id: 'yes', type: 'default', text: 'Yes' },
+                        { id: 'no', type: 'close', text: 'No' }
+                    ]
+                }, (button_id) => {
+                    if (button_id === 'yes') {
+                        // 调用转发 API
+                        forwardMessage(from_chat_id, message_id);
+                    } else {
+                        tg.MainButton.hide();
+                    }
+                });
+            });
+        }
+
+        function forwardMessage(from_chat_id, message_id) {
+            let tg = window.Telegram.WebApp;
+
+            // 调用 Telegram API 转发消息
+            fetch(`https://api.telegram.org/bot<YOUR_BOT_API_TOKEN>/forwardMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: from_chat_id,
+                    from_chat_id: from_chat_id,
+                    message_id: message_id
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Message forwarded:', data);
+                tg.MainButton.setText("Message Forwarded");
+                setTimeout(() => tg.MainButton.hide(), 3000);
+            })
+            .catch(error => {
+                console.error('Error forwarding message:', error);
+                tg.MainButton.setText("Error");
+                setTimeout(() => tg.MainButton.hide(), 3000);
             });
         }
 
