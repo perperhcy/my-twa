@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org/js/games.js"></script>
 </head>
 <body>
     <h1>Welcome to Telegram Mini App</h1>
     <button id="shareButton">Share</button>
     <button id="forwardButton">Forward</button>
+    <button onclick="TelegramGameProxy.shareScore()">Share score</button>
 
     <script>
         // 等待 Telegram Web App 准备就绪
