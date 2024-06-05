@@ -8,6 +8,7 @@ const forwardButton = document.getElementById('forwardButton');
 forwardButton.addEventListener('click', () => {
     // Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://www.bing.com/translator?ref=TThis&text=&from=zh-Hans&to=en&mkt=zh-CN');
     Telegram.WebApp.close();
-    Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://core.telegram.org/widgets/share');
+    // Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://core.telegram.org/widgets/share');
+    Telegram.WebApp.openLink('https://t.me/share/url?url=https://core.telegram.org/widgets/share');
 
 });
