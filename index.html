@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <button id="open-telegram-link-button">Open Funtonbot</button>
+    <button id="open-telegram-link-button">Funtonbot Funtonbot</button>
 
     <script>
         // 等待 Telegram Web App 初始化完成
@@ -20,8 +20,15 @@
 
         // 添加点击事件监听器
         button.addEventListener('click', function () {
+            // 定义内嵌的 URL 和需要携带的参数
+            const innerUrl = 'https://t.me/Funtonbot/gameapp?startapp=rp_8681hnq4';
+            // 对内嵌 URL 进行编码
+            const encodedInnerUrl = encodeURIComponent(innerUrl);
+            // 构建最终的 Telegram 分享链接
+            const link = `https://t.me/share/url?url=${encodedInnerUrl}`;
+
             // 打开指定的 Telegram 链接
-            Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://t.me/Funtonbot/gameapp');
+            Telegram.WebApp.openTelegramLink(link);
         });
     </script>
 </body>
