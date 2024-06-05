@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <button id="open-telegram-link-button">Open Telegram Link</button>
+    <button id="open-telegram-link-button">Open username</button>
 
     <script>
         // 等待 Telegram Web App 初始化完成
@@ -21,7 +21,7 @@
         // 添加点击事件监听器
         button.addEventListener('click', function () {
             // 打开指定的 Telegram 链接
-            Telegram.WebApp.openTelegramLink('https://t.me/username');
+            Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://t.me/username');
         });
     </script>
 </body>
