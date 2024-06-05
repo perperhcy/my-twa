@@ -6,5 +6,5 @@ const forwardButton = document.getElementById('forwardButton');
 
 // 转发按钮点击事件处理程序
 forwardButton.addEventListener('click', () => {
-    Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://t.me/Funtonbot/gameapp?startapp=rp_8681hnq4');
+    Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://t.me/MansonGameBot/gameapp?startapp=08042');
 });
