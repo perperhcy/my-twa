@@ -7,6 +7,5 @@ const forwardButton = document.getElementById('forwardButton');
 // 转发按钮点击事件处理程序
 forwardButton.addEventListener('click', () => {
     // Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://www.bing.com/translator?ref=TThis&text=&from=zh-Hans&to=en&mkt=zh-CN');
-    Telegram.WebApp.openTelegramLink('https://t.me/share/url?url=https://t.me/catizenbot/gameapp?startapp=r_841_6947259');
 
 });
