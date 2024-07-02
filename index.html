@@ -1,36 +1,13 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Telegram WebApp Example</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-
-<body>
-    <button id="open-telegram-link-button">opopopjnihjijijijijijji66666666</button>
-
-    <script>
-        // 等待 Telegram Web App 初始化完成
-        Telegram.WebApp.ready(function () {
-            // 选择按钮元素
-
-        });
-
-        const button = document.getElementById('open-telegram-link-button');
-
-        // 添加点击事件监听器
-        button.addEventListener('click', function () {
-            // 定义内嵌的 URL 和需要携带的参数
-            const innerUrl = 'https://t.me/Funtonbot/gameapp?startapp=rp_8681hnq4';
-            // 对内嵌 URL 进行编码
-            const encodedInnerUrl = encodeURIComponent(innerUrl);
-            // 构建最终的 Telegram 分享链接
-            const link = `https://t.me/share/url?url=${encodedInnerUrl}&text=opopopjnihjijijijijijji66666666`;
-
-            // 打开指定的 Telegram 链接
-            Telegram.WebApp.openTelegramLink(link);
-        });
-    </script>
-</body>
-
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
