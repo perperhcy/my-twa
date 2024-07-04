@@ -29,16 +29,25 @@
 
             // // 打开指定的 Telegram 链接
             // Telegram.WebApp.openTelegramLink(link);
-            const invoiceLink = 'https://t.me/$WHCu5omQIFTvAAAAhyl8Vivf31k';
+            const invoiceLink = 'https://t.me/$LQjo7UjNMEgBAAAAlNcnjNtFrhI';
 
             // 打开支付窗口
             Telegram.WebApp.openInvoice(invoiceLink, function (paymentResult) {
-                if (paymentResult.status === 'paid') {
-                    alert('支付成功！');
-                } else {
-                    alert('支付失败，请重试。');
-                }
+                // if (paymentResult.status === 'paid') {
+                //     alert('支付成功！');
+                // } else {
+                //     alert('支付失败，请重试。');
+                // }
             });
+
+            /*
+invoiceClosed	Bot API 6.1+ Occurrs when the opened invoice is closed.
+eventHandler receives an object with the two fields: url – invoice link provided and status – one of the invoice statuses:
+- paid – invoice was paid successfully,
+- cancelled – user closed this invoice without paying,
+- failed – user tried to pay, but the payment was failed,
+- pending – the payment is still processing. The bot will receive a service message about a successful payment when the payment is successfully paid.
+            */
         });
     </script>
 </body>
