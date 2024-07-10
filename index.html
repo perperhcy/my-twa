@@ -71,6 +71,7 @@ eventHandler receives an object with the two fields: url – invoice link provid
         });
         const user = Telegram.WebApp.initDataUnsafe.user;
         const userInfoDiv = document.getElementById('user-info');
+        console.log('user:' + user);    
 
             if (user) {
                 const userName = user.first_name + ' ' + user.last_name;
