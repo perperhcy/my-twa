@@ -60,6 +60,8 @@ eventHandler receives an object with the two fields: url – invoice link provid
 </head>
 <body>
     <h1>Telegram Mini App</h1>
+    <!-- <img src="https://th.bing.com/th/id/OIP.jTMqvQYsHNZFFuGGx80SGQHaEK?w=284&h=180&c=7&r=0&o=5&pid=1.7" alt="描述图片内容"> -->
+
     <div id="user-info"></div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
@@ -68,17 +70,25 @@ eventHandler receives an object with the two fields: url – invoice link provid
 
         });
         const user = Telegram.WebApp.initDataUnsafe.user;
+        const userInfoDiv = document.getElementById('user-info');
+
             if (user) {
-                const userInfoDiv = document.getElementById('user-info');
                 const userName = user.first_name + ' ' + user.last_name;
                 const userAvatar = user.photo_url ? `<img src="${user.photo_url}" alt="User Avatar">` : 'No avatar available';
+
+                console.log('userAvatar:' + user.photo_url);    
+
                 userInfoDiv.innerHTML = `
                     <p>Name: ${userName}</p>
                     <p>Username: ${user.username}</p>
                     <div>${userAvatar}</div>
                 `;
             } else {
-                console.log('No user data available');
+                console.log('No user data available');    
+                const userAvatar = `<img src="https://th.bing.com/th/id/OIP.jTMqvQYsHNZFFuGGx80SGQHaEK?w=284&h=180&c=7&r=0&o=5&pid=1.7" alt="User Avatar">`;
+                userInfoDiv.innerHTML = `
+                    <div>${userAvatar}</div>
+                `;  
             }
     </script>
 </body>
