@@ -65,7 +65,9 @@ eventHandler receives an object with the two fields: url – invoice link provid
     <script>
         // Wait until the Telegram Web Apps JavaScript API is ready
         Telegram.WebApp.onEvent('ready', function() {
-            const user = Telegram.WebApp.initDataUnsafe.user;
+
+        });
+        const user = Telegram.WebApp.initDataUnsafe.user;
             if (user) {
                 const userInfoDiv = document.getElementById('user-info');
                 const userName = user.first_name + ' ' + user.last_name;
@@ -78,7 +80,6 @@ eventHandler receives an object with the two fields: url – invoice link provid
             } else {
                 console.log('No user data available');
             }
-        });
     </script>
 </body>
 </html>
