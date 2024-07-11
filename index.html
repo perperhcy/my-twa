@@ -34,7 +34,8 @@
 
             });
             
-            Telegram.WebApp.isClosingConfirmationEnabled = true
+            Telegram.WebApp.enableClosingConfirmation()
+            console.log('isClosingConfirmationEnabled:' + Telegram.WebApp.isClosingConfirmationEnabled);    
 
             const invoiceLink = inputValue;
 
