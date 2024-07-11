@@ -19,6 +19,16 @@
     <title>输入框示例</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+                    // 等待 Telegram Web App 初始化完成
+                    Telegram.WebApp.ready(function () {
+                // 选择按钮元素
+
+            });
+            
+            Telegram.WebApp.enableClosingConfirmation()
+            console.log('isClosingConfirmationEnabled:' + Telegram.WebApp.isClosingConfirmationEnabled);    
+            alert('isClosingConfirmationEnabled:' + Telegram.WebApp.isClosingConfirmationEnabled);
+            
         // 这个函数将在点击按钮时被调用
         function getInputValue() {
             // 获取输入框的元素
@@ -28,15 +38,7 @@
             // 显示输入框的内容
             // alert("输入的内容是: " + inputValue);
 
-            // 等待 Telegram Web App 初始化完成
-            Telegram.WebApp.ready(function () {
-                // 选择按钮元素
 
-            });
-            
-            Telegram.WebApp.enableClosingConfirmation()
-            console.log('isClosingConfirmationEnabled:' + Telegram.WebApp.isClosingConfirmationEnabled);    
-            alert('isClosingConfirmationEnabled:' + Telegram.WebApp.isClosingConfirmationEnabled);
 
             const invoiceLink = inputValue;
 
