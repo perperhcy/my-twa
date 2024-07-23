@@ -12,46 +12,38 @@
   </body>
 </html> -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>输入框示例</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-                    // 等待 Telegram Web App 初始化完成
-                    Telegram.WebApp.ready(function () {
-                // 选择按钮元素
+      // 等待 Telegram Web App 初始化完成
+      Telegram.WebApp.ready(function () {
+        // 选择按钮元素
+      });
 
-            });
-            
-            Telegram.WebApp.enableClosingConfirmation()
-            console.log('isClosingConfirmationEnabled:' + Telegram.WebApp.isClosingConfirmationEnabled);    
-            alert('isClosingConfirmationEnabled:' + Telegram.WebApp.isClosingConfirmationEnabled);
-            
-        // 这个函数将在点击按钮时被调用
-        function getInputValue() {
-            // 获取输入框的元素
-            var inputElement = document.getElementById("inputField");
-            // 获取输入框的内容
-            var inputValue = inputElement.value;
-            // 显示输入框的内容
-            // alert("输入的内容是: " + inputValue);
+      // 这个函数将在点击按钮时被调用
+      function getInputValue() {
+        // 获取输入框的元素
+        var inputElement = document.getElementById("inputField");
+        // 获取输入框的内容
+        var inputValue = inputElement.value;
+        // 显示输入框的内容
+        // alert("输入的内容是: " + inputValue);
 
+        const invoiceLink = inputValue;
 
+        // 打开支付窗口
+        Telegram.WebApp.openInvoice(invoiceLink, function (paymentResult) {
+          if (paymentResult.status === "paid") {
+            //请求校验订单接口
+          } else {
+            //alert('支付失败，请重试。');
+          }
+        }); -->
 
-            const invoiceLink = inputValue;
-
-            // 打开支付窗口
-            Telegram.WebApp.openInvoice(invoiceLink, function (paymentResult) {
-                if (paymentResult.status === 'paid') {
-                    //请求校验订单接口
-                } else {
-                    //alert('支付失败，请重试。');
-                }
-            });
-
-            /*
+        /*
 invoiceClosed	Bot API 6.1+ Occurrs when the opened invoice is closed.
 eventHandler receives an object with the two fields: url – invoice link provided and status – one of the invoice statuses:
 - paid – invoice was paid successfully,
@@ -59,19 +51,18 @@ eventHandler receives an object with the two fields: url – invoice link provid
 - failed – user tried to pay, but the payment was failed,
 - pending – the payment is still processing. The bot will receive a service message about a successful payment when the payment is successfully paid.
             */
-        }
+      }
     </script>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>获取输入框内容示例</h1>
-    <input type="text" id="inputField" placeholder="请输入内容">
+    <input type="text" id="inputField" placeholder="请输入内容" />
     <button onclick="getInputValue()">获取内容</button>
-</body>
-
+  </body>
 </html>
 
-<!--
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,6 +85,8 @@ eventHandler receives an object with the two fields: url – invoice link provid
         const userInfoDiv = document.getElementById('user-info');
         console.log('user:' + user);    
 
+        Telegram.WebApp.disableVerticalSwipes();
+
             if (user) {
                 const userName = user.first_name + ' ' + user.last_name;
                 const userAvatar = user.photo_url ? `<img src="${user.photo_url}" alt="User Avatar">` : 'No avatar available';
@@ -115,5 +108,4 @@ eventHandler receives an object with the two fields: url – invoice link provid
     </script>
 </body>
 </html>
--->
 
