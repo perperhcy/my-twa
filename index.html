@@ -85,6 +85,9 @@ eventHandler receives an object with the two fields: url – invoice link provid
         const userInfoDiv = document.getElementById('user-info');
         console.log('user:' + user);    
 
+        const version = Telegram.WebApp.version;
+        alert("	The version of the Bot API" + version);
+
         Telegram.WebApp.disableVerticalSwipes();
 
             if (user) {
