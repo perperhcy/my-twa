@@ -31,14 +31,15 @@
 
       // 等待 Telegram Web App 初始化完成
       tele.ready(function () {
-        // 选择按钮元素
       });
+      console.log("initParams  " + Telegram.WebApp.initParams);
 
       const version = tele.version;
-      console.log("version" + version);
-      document.getElementById('text-container').innerText = "The version of the Bot API--" + version;
+      console.log("version  " + version);
+      document.getElementById("text-container").innerText =
+        "The version of the Bot API--" + version;
 
-      tele.setHeaderColor("#fcf6e2");
+      tele.setHeaderColor("#c31418");
 
       // 这个函数将在点击按钮时被调用
       function getInputValue() {
@@ -70,7 +71,6 @@ eventHandler receives an object with the two fields: url – invoice link provid
             */
       }
     </script>
-
   </body>
 </html>
 
