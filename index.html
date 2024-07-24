@@ -17,6 +17,15 @@
   <head>
     <title>输入框示例</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </head>
+
+  <body>
+    <p id="text-container">Loading...</p>
+
+    <h1>获取输入框内容示例</h1>
+    <input type="text" id="inputField" placeholder="请输入内容" />
+    <button onclick="getInputValue()">获取内容</button>
+
     <script>
       const tele = window.Telegram.WebApp;
 
@@ -27,9 +36,7 @@
 
       const version = tele.version;
       console.log("version" + version);
-
-      const platform = tele.version;
-      console.log("platform" + platform);
+      document.getElementById('text-container').innerText = "The version of the Bot API--" + version;
 
       tele.setHeaderColor("#fcf6e2");
 
@@ -63,12 +70,7 @@ eventHandler receives an object with the two fields: url – invoice link provid
             */
       }
     </script>
-  </head>
 
-  <body>
-    <h1>获取输入框内容示例</h1>
-    <input type="text" id="inputField" placeholder="请输入内容" />
-    <button onclick="getInputValue()">获取内容</button>
   </body>
 </html>
 
