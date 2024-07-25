@@ -30,16 +30,19 @@
       const tele = window.Telegram.WebApp;
 
       // 等待 Telegram Web App 初始化完成
-      tele.ready(function () {
-      });
+      tele.ready(function () {});
       console.log("initParams  " + Telegram.WebApp.initParams);
 
+      //显示version of the Bot API
       const version = tele.version;
-      console.log("version  " + version);
       document.getElementById("text-container").innerText =
         "The version of the Bot API--" + version;
 
+      //设置header颜色
       tele.setHeaderColor("#c31418");
+
+      const initData = tele.initData;
+      console.log("initData  " + initData);
 
       // 这个函数将在点击按钮时被调用
       function getInputValue() {
