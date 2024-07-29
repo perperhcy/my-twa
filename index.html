@@ -26,6 +26,10 @@
     <input type="text" id="inputField" placeholder="请输入内容" />
     <button onclick="getInputValue()">获取内容</button>
 
+    <h1>Welcome!</h1>
+    <p id="beforeunload">Loading data...</p>
+    <p id="unload">Loading data...</p>
+
     <script>
       const tele = window.Telegram.WebApp;
 
@@ -48,6 +52,8 @@
       tele.onEvent("backButtonClicked", function () {
         tele.close();
       });
+
+      tele.MainButton.isVisible = true;
       tele.onEvent("mainButtonClicked", function () {
         alert("mainButtonClicked");
       });
@@ -55,6 +61,49 @@
       tele.SettingsButton.isVisible = true;
       tele.onEvent("settingsButtonClicked", function () {
         alert("settingsButtonClicked");
+      });
+
+      // 监听 beforeunload 事件
+      window.addEventListener("beforeunload", function (event) {
+        // 在这里可以执行一些操作，比如记录日志或发送请求
+        console.log("用户即将离开页面");
+
+        // 获取当前时间的 Date 对象
+        const now = new Date();
+
+        // 获取具体的时间组件
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 月份从0开始，需要加1，并确保两位数
+        const day = now.getDate().toString().padStart(2, "0");
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const seconds = now.getSeconds().toString().padStart(2, "0");
+
+        // 格式化时间字符串
+        const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+        localStorage.setItem("beforeunload", formattedTime);
+      });
+
+      // 监听 unload 事件
+      window.addEventListener("unload", function (event) {
+        console.log("用户已离开页面");
+
+        // 获取当前时间的 Date 对象
+        const now = new Date();
+
+        // 获取具体的时间组件
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 月份从0开始，需要加1，并确保两位数
+        const day = now.getDate().toString().padStart(2, "0");
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const seconds = now.getSeconds().toString().padStart(2, "0");
+
+        // 格式化时间字符串
+        const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+        localStorage.setItem("unload", formattedTime);
       });
 
       // 这个函数将在点击按钮时被调用
@@ -86,6 +135,26 @@ eventHandler receives an object with the two fields: url – invoice link provid
 - pending – the payment is still processing. The bot will receive a service message about a successful payment when the payment is successfully paid.
             */
       }
+
+      // 读取数据并显示
+      function displayStoredData() {
+        const storedData = localStorage.getItem("beforeunload");
+        const displayElement = document.getElementById("beforeunload");
+
+        const unloadstoredData = localStorage.getItem("unload");
+        const unloaddisplayElement = document.getElementById("unload");
+
+        if (storedData) {
+          displayElement.textContent = `Stored Data: ${storedData}`;
+          unloaddisplayElement.textContent = `Stored Data: ${unloadstoredData}`;
+        } else {
+          displayElement.textContent = "No data found.";
+          unloaddisplayElement.textContent = "No data found.";
+        }
+      }
+
+      // 页面加载时显示存储的数据
+      document.addEventListener("DOMContentLoaded", displayStoredData);
     </script>
   </body>
 </html>
