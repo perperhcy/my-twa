@@ -44,6 +44,11 @@
       const initData = tele.initData;
       console.log("initData  " + initData);
 
+      tele.BackButton.isVisible = true;
+      tele.onEvent("backButtonClicked", function () {
+        // 处理事件
+      });
+
       // 这个函数将在点击按钮时被调用
       function getInputValue() {
         // 获取输入框的元素
