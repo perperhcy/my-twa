@@ -118,20 +118,37 @@
 
       // 这个函数将在点击按钮时被调用
       function getInputValue() {
-        tele.showPopup(
+        // tele.showPopup(
+        //   {
+        //     title: "Confirmation",
+        //     message: "Are you sure you want to proceed?",
+        //     buttons: [
+        //       { id: "yes", type: "default", text: "Yes" },
+        //       { id: "no", type: "destructive", text: "No" },
+        //     ],
+        //   },
+        //   (buttonId) => {
+        //     // 处理用户点击的按钮
+        //     if (buttonId === "yes") {
+        //       alert("You selected: Yes");
+        //     } else if (buttonId === "no") {
+        //       alert("You selected: No");
+        //     }
+        //   }
+        // );
+
+        tg.showConfirm(
           {
             title: "Confirmation",
             message: "Are you sure you want to proceed?",
-            buttons: [
-              { id: "yes", type: "default", text: "Yes" },
-              { id: "no", type: "destructive", text: "No" },
-            ],
+            okButton: "Yes",
+            cancelButton: "No",
           },
-          (buttonId) => {
+          (result) => {
             // 处理用户点击的按钮
-            if (buttonId === "yes") {
+            if (result) {
               alert("You selected: Yes");
-            } else if (buttonId === "no") {
+            } else {
               alert("You selected: No");
             }
           }
