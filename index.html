@@ -54,7 +54,7 @@
 
       tele.enableClosingConfirmation();
       tele.onEvent("popupClosed", function () {
-        alert("popupClosed");
+        storeData();
       });
 
       // tele.BackButton.isVisible = true;
