@@ -54,24 +54,9 @@
 
       tele.enableClosingConfirmation();
       tele.onEvent("popupClosed", function () {
-        alert('popupClosed');
+        alert("popupClosed");
+        storeData();
       });
-
-      tele.showPopup({
-            title: 'Confirmation',
-            message: 'Are you sure you want to proceed?',
-            buttons: [
-                { id: 'yes', type: 'default', text: 'Yes' },
-                { id: 'no', type: 'destructive', text: 'No' }
-            ]
-        }, (buttonId) => {
-            // 处理用户点击的按钮
-            if (buttonId === 'yes') {
-                alert('You selected: Yes');
-            } else if (buttonId === 'no') {
-                alert('You selected: No');
-            }
-        });
 
       // tele.BackButton.isVisible = true;
       // tele.onEvent("backButtonClicked", function () {
@@ -133,23 +118,42 @@
 
       // 这个函数将在点击按钮时被调用
       function getInputValue() {
-        // 获取输入框的元素
-        var inputElement = document.getElementById("inputField");
-        // 获取输入框的内容
-        var inputValue = inputElement.value;
-        // 显示输入框的内容
-        // alert("输入的内容是: " + inputValue);
-
-        const invoiceLink = inputValue;
-
-        // 打开支付窗口
-        tele.openInvoice(invoiceLink, function (paymentResult) {
-          if (paymentResult.status === "paid") {
-            //请求校验订单接口
-          } else {
-            //alert('支付失败，请重试。');
+        tele.showPopup(
+          {
+            title: "Confirmation",
+            message: "Are you sure you want to proceed?",
+            buttons: [
+              { id: "yes", type: "default", text: "Yes" },
+              { id: "no", type: "destructive", text: "No" },
+            ],
+          },
+          (buttonId) => {
+            // 处理用户点击的按钮
+            if (buttonId === "yes") {
+              alert("You selected: Yes");
+            } else if (buttonId === "no") {
+              alert("You selected: No");
+            }
           }
-        });
+        );
+
+        // 获取输入框的元素
+        // var inputElement = document.getElementById("inputField");
+        // // 获取输入框的内容
+        // var inputValue = inputElement.value;
+        // // 显示输入框的内容
+        // // alert("输入的内容是: " + inputValue);
+
+        // const invoiceLink = inputValue;
+
+        // // 打开支付窗口
+        // tele.openInvoice(invoiceLink, function (paymentResult) {
+        //   if (paymentResult.status === "paid") {
+        //     //请求校验订单接口
+        //   } else {
+        //     //alert('支付失败，请重试。');
+        //   }
+        // });
 
         /*
 invoiceClosed	Bot API 6.1+ Occurrs when the opened invoice is closed.
