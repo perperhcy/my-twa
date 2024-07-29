@@ -29,6 +29,10 @@
     <h1>Welcome!</h1>
     <p id="beforeunload">Loading data...</p>
     <p id="unload">Loading data...</p>
+    <p id="displayData">Loading data...</p>
+
+    <input type="text" id="inputData" placeholder="Enter some data" />
+    <button onclick="storeData()">Save Data</button>
 
     <script>
       const tele = window.Telegram.WebApp;
@@ -136,21 +140,32 @@ eventHandler receives an object with the two fields: url – invoice link provid
             */
       }
 
+      // 存储数据到Local Storage
+      function storeData() {
+        const data = document.getElementById("inputData").value;
+        if (data) {
+          localStorage.setItem("storedData", data);
+          alert("Data saved!");
+        } else {
+          alert("Please enter some data to save.");
+        }
+      }
+
       // 读取数据并显示
       function displayStoredData() {
-        const storedData = localStorage.getItem("beforeunload");
-        const displayElement = document.getElementById("beforeunload");
+        const beforeunloadstoredData = localStorage.getItem("beforeunload");
+        const beforeunloaddisplayElement =
+          document.getElementById("beforeunload");
 
         const unloadstoredData = localStorage.getItem("unload");
         const unloaddisplayElement = document.getElementById("unload");
 
-        if (storedData) {
-          displayElement.textContent = `Stored Data: ${storedData}`;
-          unloaddisplayElement.textContent = `Stored Data: ${unloadstoredData}`;
-        } else {
-          displayElement.textContent = "No data found.";
-          unloaddisplayElement.textContent = "No data found.";
-        }
+        const storedData = localStorage.getItem("storedData");
+        const displayElement = document.getElementById("displayData");
+
+        beforeunloaddisplayElement.textContent = `Stored Data: ${beforeunloadstoredData}`;
+        unloaddisplayElement.textContent = `Stored Data: ${unloadstoredData}`;
+        displayElement.textContent = `Stored Data: ${storedData}`;
       }
 
       // 页面加载时显示存储的数据
