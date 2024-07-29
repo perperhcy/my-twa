@@ -58,10 +58,30 @@
         storeData();
       });
 
+      //左上角关闭按钮换成返回按钮,有回调事件; 通知后端用户关闭游戏
       tele.BackButton.isVisible = true;
       tele.onEvent("backButtonClicked", function () {
-        storeData();
-        tele.close();
+        console.log(time() + "backButtonClicked  ");
+
+        fetch("http://127.0.0.1:9201/game/miniAppClose", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: "foo",
+            body: "bar",
+            userId: 1,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert(time() + "response" + JSON.stringify(data, null, 2));
+          })
+          .catch((error) => {
+            console.error("Error posting data:", error);
+          });
+        // tele.close();
       });
 
       // tele.MainButton.isVisible = true;
@@ -209,6 +229,23 @@ eventHandler receives an object with the two fields: url – invoice link provid
         beforeunloaddisplayElement.textContent = `beforeunloadstoredData : ${beforeunloadstoredData}`;
         unloaddisplayElement.textContent = `unloadstoredData : ${unloadstoredData}`;
         displayElement.textContent = `Stored Data: ${storedData}`;
+      }
+
+      function time() {
+        // 获取当前时间的 Date 对象
+        const now = new Date();
+
+        // 获取具体的时间组件
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 月份从0开始，需要加1，并确保两位数
+        const day = now.getDate().toString().padStart(2, "0");
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const seconds = now.getSeconds().toString().padStart(2, "0");
+
+        // 格式化时间字符串
+        const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        return formattedTime;
       }
 
       // 页面加载时显示存储的数据
