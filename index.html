@@ -57,15 +57,15 @@
         tele.close();
       });
 
-      tele.MainButton.isVisible = true;
-      tele.onEvent("mainButtonClicked", function () {
-        alert("mainButtonClicked");
-      });
+      // tele.MainButton.isVisible = true;
+      // tele.onEvent("mainButtonClicked", function () {
+      //   alert("mainButtonClicked");
+      // });
 
-      tele.SettingsButton.isVisible = true;
-      tele.onEvent("settingsButtonClicked", function () {
-        alert("settingsButtonClicked");
-      });
+      // tele.SettingsButton.isVisible = true;
+      // tele.onEvent("settingsButtonClicked", function () {
+      //   alert("settingsButtonClicked");
+      // });
 
       // 监听 beforeunload 事件
       window.addEventListener("beforeunload", function (event) {
@@ -163,8 +163,8 @@ eventHandler receives an object with the two fields: url – invoice link provid
         const storedData = localStorage.getItem("storedData");
         const displayElement = document.getElementById("displayData");
 
-        beforeunloaddisplayElement.textContent = `Stored Data: ${beforeunloadstoredData}`;
-        unloaddisplayElement.textContent = `Stored Data: ${unloadstoredData}`;
+        beforeunloaddisplayElement.textContent = `beforeunloadstoredData : ${beforeunloadstoredData}`;
+        unloaddisplayElement.textContent = `unloadstoredData : ${unloadstoredData}`;
         displayElement.textContent = `Stored Data: ${storedData}`;
       }
 
