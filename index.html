@@ -46,9 +46,15 @@
 
       tele.BackButton.isVisible = true;
       tele.onEvent("backButtonClicked", function () {
-        // 处理事件
+        alert("backButtonClicked");
       });
-
+      tele.onEvent("mainButtonClicked", function () {
+        alert("mainButtonClicked");
+      });
+      tele.onEvent("settingsButtonClicked", function () {
+        alert("settingsButtonClicked");
+      });
+      
       // 这个函数将在点击按钮时被调用
       function getInputValue() {
         // 获取输入框的元素
