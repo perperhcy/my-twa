@@ -54,8 +54,24 @@
 
       tele.enableClosingConfirmation();
       tele.onEvent("popupClosed", function () {
-        storeData();
+        alert('popupClosed');
       });
+
+      tele.showPopup({
+            title: 'Confirmation',
+            message: 'Are you sure you want to proceed?',
+            buttons: [
+                { id: 'yes', type: 'default', text: 'Yes' },
+                { id: 'no', type: 'destructive', text: 'No' }
+            ]
+        }, (buttonId) => {
+            // 处理用户点击的按钮
+            if (buttonId === 'yes') {
+                alert('You selected: Yes');
+            } else if (buttonId === 'no') {
+                alert('You selected: No');
+            }
+        });
 
       // tele.BackButton.isVisible = true;
       // tele.onEvent("backButtonClicked", function () {
