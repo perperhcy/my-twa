@@ -52,7 +52,7 @@
       const initData = tele.initData;
       console.log("initData  " + initData);
 
-      tele.enableClosingConfirmation();
+      // tele.enableClosingConfirmation();
       tele.onEvent("popupClosed", function () {
         alert("popupClosed");
         storeData();
@@ -60,6 +60,7 @@
 
       tele.BackButton.isVisible = true;
       tele.onEvent("backButtonClicked", function () {
+        storeData();
         tele.close();
       });
 
