@@ -46,7 +46,7 @@
 
       tele.BackButton.isVisible = true;
       tele.onEvent("backButtonClicked", function () {
-        alert("backButtonClicked");
+        tele.close();
       });
       tele.onEvent("mainButtonClicked", function () {
         alert("mainButtonClicked");
