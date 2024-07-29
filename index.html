@@ -51,10 +51,12 @@
       tele.onEvent("mainButtonClicked", function () {
         alert("mainButtonClicked");
       });
+
+      tele.SettingsButton.isVisible = true;
       tele.onEvent("settingsButtonClicked", function () {
         alert("settingsButtonClicked");
       });
-      
+
       // 这个函数将在点击按钮时被调用
       function getInputValue() {
         // 获取输入框的元素
