@@ -2,6 +2,7 @@ import { useTonConnectUI } from "@tonconnect/ui-react";
 import { Address, Sender, SenderArguments, beginCell, toNano } from "@ton/core";
 import { JettonMaster, TonClient } from "ton";
 import { getHttpEndpoint } from "@orbs-network/ton-access";
+import TonWeb from "tonweb";
 
 export function useTonConnect(): { sender: Sender; connected: boolean } {
   const [tonConnectUI] = useTonConnectUI();
@@ -22,7 +23,7 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
           const jettonMaster = tonClient.open(
             JettonMaster.create(
               // Address.parse("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs")
-              Address.parse("kQD0GKBM8ZbryVk2aESmzfU6b9b_8era_IkvBSELujFZPsyy")
+              Address.parse('UQD0GKBM8ZbryVk2aESmzfU6b9b_8era_IkvBSELujFZPir9')
             )
           );
           const amount = "1000";
@@ -44,7 +45,8 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
             .storeCoins(toNano("0.01")) // forward ton amount
             .storeMaybeRef(commentCell) // forward payload with comment
             .endCell();
-          const transaction = {
+
+          const response = await tonConnectUI.sendTransaction({
             validUntil: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7, // 7 days
             messages: [
               {
@@ -53,9 +55,15 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
                 payload: body.toBoc().toString("base64"),
               },
             ],
-          };
-          const res = await tonConnectUI.sendTransaction(transaction);
-          console.log("Transfer Jetton Success", res);
+          });
+          // 处理成功的交易
+          console.log("Transaction successful:", response);
+          try {
+            const decodedBoc = TonWeb.utils.base64ToBytes(response.boc);
+            console.log("解码后的BOC数据:", decodedBoc);
+          } catch (error) {
+            console.error("解码BOC失败:", error);
+          }
 
           // //添加评论的转账
           // const body = beginCell()
