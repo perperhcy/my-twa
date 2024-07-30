@@ -16,14 +16,13 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
 
           const userAddress = args.to;
 
-          const endpoint = await getHttpEndpoint({
-            network: "mainnet",
-          });
+          const endpoint = await getHttpEndpoint({ network: "testnet" });
           const tonClient = new TonClient({ endpoint });
 
           const jettonMaster = tonClient.open(
             JettonMaster.create(
-              Address.parse("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs")
+              // Address.parse("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs")
+              Address.parse("kQD0GKBM8ZbryVk2aESmzfU6b9b_8era_IkvBSELujFZPsyy")
             )
           );
           const amount = "1000";
@@ -31,7 +30,8 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
           const comment = "mcmcmcmc"; // 替换为实际的评论内容
           //创建包含评论的 forward payload
           const commentCell = beginCell()
-            .storeUint(0, 32) //预留32位用于标识.storestringTail(comment)// 存储评论内容
+            .storeUint(0, 32) //预留32位用于标识
+            .storeStringTail(comment) // 存储评论内容
             .endCell();
 
           const body = beginCell()
