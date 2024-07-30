@@ -15,7 +15,8 @@ export function useCounterContract() {
   const counterContract = useAsyncInitialize(async () => {
     if (!client) return;
     const contract = new Counter(
-      Address.parse('EQDThKXPI8vhkr_zkRfObPryORWjOkUNsrQTZ3_pdGsotCnW') // replace with your address from tutorial 2 step 8
+      // Address.parse('EQDThKXPI8vhkr_zkRfObPryORWjOkUNsrQTZ3_pdGsotCnW') // 智能合约地址
+      Address.parse('UQD8dSuJ4zpyx146gSPk61OEi7lkWrUFy_9hr6r9K9ifovZL') // 阿成
     );
     return client.open(contract) as OpenedContract<Counter>;
   }, [client]);

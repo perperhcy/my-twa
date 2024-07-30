@@ -1,4 +1,4 @@
-<!-- <!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,9 +10,9 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
-</html> -->
+</html>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>输入框示例</title>
@@ -62,26 +62,7 @@
       tele.BackButton.isVisible = true;
       tele.onEvent("backButtonClicked", function () {
         console.log(time() + "backButtonClicked  ");
-
-        fetch("http://127.0.0.1:9201/game/miniAppClose", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: "foo",
-            body: "bar",
-            userId: 1,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            alert(time() + "response" + JSON.stringify(data, null, 2));
-          })
-          .catch((error) => {
-            console.error("Error posting data:", error);
-          });
-        // tele.close();
+        tele.close();
       });
 
       // tele.MainButton.isVisible = true;
@@ -252,7 +233,7 @@ eventHandler receives an object with the two fields: url – invoice link provid
       document.addEventListener("DOMContentLoaded", displayStoredData);
     </script>
   </body>
-</html>
+</html> -->
 
 <!-- <!DOCTYPE html>
 <html lang="en">
