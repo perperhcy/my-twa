@@ -17,14 +17,13 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
 
           const userAddress = args.to;
 
-          const endpoint = await getHttpEndpoint({ network: "testnet" });
+          const endpoint = await getHttpEndpoint({ network: "mainnet" });
           const tonClient = new TonClient({ endpoint });
 
+          const jettonMasterAddress =
+            "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
           const jettonMaster = tonClient.open(
-            JettonMaster.create(
-              // Address.parse("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs")
-              Address.parse('UQD0GKBM8ZbryVk2aESmzfU6b9b_8era_IkvBSELujFZPir9')
-            )
+            JettonMaster.create(Address.parse(jettonMasterAddress))
           );
           const amount = "1000";
           const jettonWallet = await jettonMaster.getWalletAddress(userAddress);
