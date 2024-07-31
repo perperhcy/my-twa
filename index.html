@@ -41,6 +41,11 @@
 
       //设置header颜色
       tele.setHeaderColor("#151414");
+
+      tele.onEvent("viewportChanged", function () {
+        console.log("viewportChanged" + tele)
+      });
+
     </script>
   </body>
 </html>
