@@ -1,16 +1,35 @@
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import { Address, Sender, SenderArguments, beginCell, toNano } from "@ton/core";
-import { JettonMaster, TonClient } from "ton";
+import { JettonMaster, TonClient } from "@ton/ton";
 import { getHttpEndpoint } from "@orbs-network/ton-access";
 import TonWeb from "tonweb";
 
 export function useTonConnect(): { sender: Sender; connected: boolean } {
   const [tonConnectUI] = useTonConnectUI();
 
+  //订阅钱包状态变化
+  // const unsubscribe = tonConnectUI.onStatusChange((walletAndwalletInfo) => {
+  //   // update state/reactive variables to show updates in the ui
+  //   console.log("connected--" + tonConnectUI.connected);
+
+  //   console.log("onStatusChange--" + walletAndwalletInfo?.account.address);
+  // });
+
   return {
     sender: {
       send: async (args: SenderArguments) => {
         try {
+          //获取钱包当前链接状态和地址
+          // let currentAccount = tonConnectUI.account?.address;
+          // currentAccount = Address.parseRaw(currentAccount!).toString({
+          //   bounceable: false,
+          // });
+
+          // const currentIsConnectedStatus = tonConnectUI.connected;
+
+          // alert(currentAccount + "\n" + currentIsConnectedStatus);
+
+          // return;
           const destinationAddress = Address.parse(
             "UQD8dSuJ4zpyx146gSPk61OEi7lkWrUFy_9hr6r9K9ifovZL"
           );
