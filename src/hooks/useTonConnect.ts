@@ -30,47 +30,52 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
           // alert(currentAccount + "\n" + currentIsConnectedStatus);
 
           // return;
+
+          //usdt支付
+          //收款方地址
           const destinationAddress = Address.parse(
             "UQD8dSuJ4zpyx146gSPk61OEi7lkWrUFy_9hr6r9K9ifovZL"
           );
 
-          const userAddress = args.to;
+          // 付款方,即用户地址
+          const userAddress = Address.parse(tonConnectUI.account?.address!);
 
+          //初始化TonClient
           const endpoint = await getHttpEndpoint({ network: "mainnet" });
           const tonClient = new TonClient({ endpoint });
 
+          //初始化JettonMaster
+          //jettonMasterAddress 决定了发起哪种代币交易,可替换成自己代币的 jettonMasterAddress
+          //“EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs” 是 USDT 的 jettonMasterAddress
           const jettonMasterAddress =
             "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
           const jettonMaster = tonClient.open(
             JettonMaster.create(Address.parse(jettonMasterAddress))
           );
-          const amount = "1000";
+
+          //获取用户的jettonWallet,发起交易是使用jettonWallet
           const jettonWallet = await jettonMaster.getWalletAddress(userAddress);
-          const comment = "mcmcmcmc"; // 替换为实际的评论内容
-          //创建包含评论的 forward payload
-          const commentCell = beginCell()
-            .storeUint(0, 32) //预留32位用于标识
-            .storeStringTail(comment) // 存储评论内容
-            .endCell();
 
           const body = beginCell()
-            .storeUint(0xf8a7ea5, 32)
+            .storeUint(0xf8a7ea5, 32) // jetton 转账操作码
             .storeUint(0, 64) // query id
-            .storeCoins(toNano(amount)) // amount
-            .storeAddress(userAddress) // sender address
-            .storeAddress(destinationAddress) // response address
-            .storeMaybeRef(null) // custom paytoad
-            .storeCoins(toNano("0.01")) // forward ton amount
-            .storeMaybeRef(commentCell) // forward payload with comment
+            .storeCoins(100000) // USDT数量 *1000000;
+            .storeAddress(destinationAddress) // 收款方,顺序和发送方不能搞反了
+            .storeAddress(userAddress) // 发送方
+            .storeUint(0, 1) // custom_payload:(Maybe ^Cell)
+            .storeCoins(toNano(0.02)) // forward_ton_amount:(VarUInteger 16)
+            .storeUint(0, 1) // forward_payload:(Either Cell ^Cell)
+            .storeUint(0, 32) // 写入32个零位以表示后面将跟随文本评论
+            .storeStringTail("123456789") // 填入我们的订单号
             .endCell();
 
           const response = await tonConnectUI.sendTransaction({
-            validUntil: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7, // 7 days
+            validUntil: Math.floor(Date.now() / 1000) + 360, //消息有效的 UNIX 时间
             messages: [
               {
-                address: jettonWallet.toString(),
-                amount: toNano("0.1").toString(), // for gas fees, excess will be returned
-                payload: body.toBoc().toString("base64"),
+                address: jettonWallet.toString(), // 发送方 Jetton 钱包
+                amount: toNano("0.1").toString(), // 用于手续费，超额部分将被退回
+                payload: body.toBoc().toString("base64"), // 带有 Jetton 转账 body 的载荷
               },
             ],
           });
@@ -88,20 +93,6 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
           //   .storeUint(0, 32) // 写入32个零位以表示后面将跟随文本评论
           //   .storeStringTail("写下我们的文本评论") // 写下我们的文本评论
           //   .endCell();
-
-          // //Jetton 转账
-          // // const body = beginCell()
-          // //   .storeUint(0xf8a7ea5, 32) // jetton 转账操作码
-          // //   .storeUint(0, 64) // query_id:uint64
-          // //   .storeCoins(1000000) // amount:(VarUInteger 16) -  转账的 Jetton 金额（小数位 = 6 - jUSDT, 9 - 默认）
-          // //   .storeAddress(args.to) // destination:MsgAddress
-          // //   .storeAddress(
-          // //     Address.parse("UQD8dSuJ4zpyx146gSPk61OEi7lkWrUFy_9hr6r9K9ifovZL")
-          // //   ) // response_destination:MsgAddress
-          // //   .storeUint(0, 1) // custom_payload:(Maybe ^Cell)
-          // //   .storeCoins(toNano(0.05)) // forward_ton_amount:(VarUInteger 16)
-          // //   .storeUint(0, 1) // forward_payload:(Either Cell ^Cell)
-          // //   .endCell();
 
           // const response = await tonConnectUI.sendTransaction({
           //   messages: [
