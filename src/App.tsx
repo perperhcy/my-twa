@@ -6,7 +6,7 @@ import { useCounterContract } from './hooks/useCounterContract';
 function App() {
   const { connected } = useTonConnect();
   const { value, address, sendIncrement } = useCounterContract();
-  const app = window.Telegram.WebApp;
+  const WebApp = window.Telegram.WebApp;
 
   return (
     <div className='App'>
@@ -36,7 +36,9 @@ function App() {
           className={`Button`}
           onClick={() => {
 
-            app.shareToStory("https://th.bing.com/th/id/OIP.yVi4wrAFr62OaWiZ2k5d7gHaPL?w=196&h=369&c=7&r=0&o=5&dpr=2&pid=1.7");
+            // app.shareToStory("https://th.bing.com/th/id/OIP.yVi4wrAFr62OaWiZ2k5d7gHaPL?w=196&h=369&c=7&r=0&o=5&dpr=2&pid=1.7");
+
+            alert("app.platform--" + WebApp.platform);
 
           }}
         >
