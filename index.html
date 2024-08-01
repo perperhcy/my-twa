@@ -1,6 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <p id="text-container">Loading...</p>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      const tele = window.Telegram.WebApp;
+
+      // 等待 Telegram Web App 初始化完成
+      tele.ready(function () {});
+      console.log("initParams  " + Telegram.WebApp.initParams);
+
+      //显示version of the Bot API
+      const version = tele.version;
+      document.getElementById("text-container").innerText =
+        "The version of the Bot API--" + version;
+
+      //设置header颜色
+      // tele.setHeaderColor("#151414");
+      tele.setHeaderColor("#3f2f1c");
+
+    </script>
+
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
     <title>Full Screen Local Image</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <meta charset="UTF-8" />
@@ -41,27 +75,13 @@
 
       //设置header颜色
       // tele.setHeaderColor("#151414");
-      // tele.setHeaderColor("#3f2f1c");
+      tele.setHeaderColor("#3f2f1c");
 
       tele.onEvent("viewportChanged", function () {
         console.log("viewportChanged" + tele)
       });
 
     </script>
-  </body>
-</html>
-
-<!-- <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html> -->
 
