@@ -2,12 +2,11 @@ import './App.css';
 import { TonConnectButton } from '@tonconnect/ui-react';
 import { useTonConnect } from './hooks/useTonConnect';
 import { useCounterContract } from './hooks/useCounterContract';
-import '@twa-dev/sdk';
-import WebApp from '@twa-dev/sdk'
 
 function App() {
   const { connected } = useTonConnect();
   const { value, address, sendIncrement } = useCounterContract();
+  const app = window.Telegram.WebApp;
 
   return (
     <div className='App'>
@@ -36,9 +35,8 @@ function App() {
         <a
           className={`Button`}
           onClick={() => {
-            WebApp.showAlert('Hey there!');
 
-
+            app.shareToStory("https://th.bing.com/th/id/OIP.yVi4wrAFr62OaWiZ2k5d7gHaPL?w=196&h=369&c=7&r=0&o=5&dpr=2&pid=1.7");
 
           }}
         >
