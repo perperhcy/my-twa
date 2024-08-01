@@ -3,6 +3,7 @@ import { TonConnectButton } from '@tonconnect/ui-react';
 import { useTonConnect } from './hooks/useTonConnect';
 import { useCounterContract } from './hooks/useCounterContract';
 import '@twa-dev/sdk';
+import WebApp from '@twa-dev/sdk'
 
 function App() {
   const { connected } = useTonConnect();
@@ -31,6 +32,19 @@ function App() {
         >
           Increment
         </a>
+
+        <a
+          className={`Button`}
+          onClick={() => {
+            WebApp.showAlert('Hey there!');
+
+
+
+          }}
+        >
+          TEST
+        </a>
+
       </div>
     </div>
   );
