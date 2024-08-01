@@ -23,14 +23,18 @@
       document.getElementById("text-container").innerText =
         "The version of the Bot API--" + version;
 
-        tele.enableClosingConfirmation();
+      tele.enableClosingConfirmation();
+      //左上角关闭按钮换成返回按钮,有回调事件; 通知后端用户关闭游戏
+      tele.BackButton.isVisible = true;
+      tele.onEvent("backButtonClicked", function () {
+        console.log(time() + "backButtonClicked  ");
+        tele.close();
+      });
 
       //设置header颜色
       // tele.setHeaderColor("#151414");
       tele.setHeaderColor("#3f2f1c");
-
     </script>
-
   </body>
 </html>
 
