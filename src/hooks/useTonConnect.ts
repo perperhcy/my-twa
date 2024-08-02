@@ -49,6 +49,10 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
           //“EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs” 是 USDT 的 jettonMasterAddress
           const jettonMasterAddress =
             "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
+
+          //发起NOT支付
+          // const jettonMasterAddress =
+          //   "EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT";
           const jettonMaster = tonClient.open(
             JettonMaster.create(Address.parse(jettonMasterAddress))
           );
@@ -59,7 +63,7 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
           const body = beginCell()
             .storeUint(0xf8a7ea5, 32) // jetton 转账操作码
             .storeUint(0, 64) // query id
-            .storeCoins(100000) // USDT数量 *1000000;
+            .storeCoins(890000) // USDT数量 *1000000;
             .storeAddress(destinationAddress) // 收款方,顺序和发送方不能搞反了
             .storeAddress(userAddress) // 发送方
             .storeUint(0, 1) // custom_payload:(Maybe ^Cell)
