@@ -39,7 +39,16 @@ function App() {
             // app.shareToStory("https://th.bing.com/th/id/OIP.yVi4wrAFr62OaWiZ2k5d7gHaPL?w=196&h=369&c=7&r=0&o=5&dpr=2&pid=1.7");
 
             // alert("app.platform--" + WebApp.platform);
-            WebApp.openTelegramLink('https://t.me/addlist/ee2zCyKj9NI4M2I1')
+            // WebApp.openTelegramLink('https://t.me/addlist/IzUQdZ2EPyNiOTFl')
+            
+            const biometricManager = Telegram.WebApp.BiometricManager;
+            alert("biometricManager.isInited--" + biometricManager.isInited);
+            if (biometricManager.isBiometricAvailable) {
+              console.log("设备支持生物识别");
+          } else {
+              console.log("设备不支持生物识别");
+          }
+        
           }}
         >
           TEST
