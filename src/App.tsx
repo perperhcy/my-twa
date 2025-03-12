@@ -47,10 +47,11 @@ function App() {
               alert("设备支持生物识别");
 
           } else {
-              console.log("设备不支持生物识别");
               alert("设备不支持生物识别");
           }
-        
+
+          alert("biometricManager.deviceId:" + biometricManager.deviceId);
+
           }}
         >
           TEST
