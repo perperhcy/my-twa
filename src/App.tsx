@@ -1,7 +1,7 @@
-import './App.css';
-import { TonConnectButton } from '@tonconnect/ui-react';
-import { useTonConnect } from './hooks/useTonConnect';
-import { useCounterContract } from './hooks/useCounterContract';
+import "./App.css";
+import { TonConnectButton } from "@tonconnect/ui-react";
+import { useTonConnect } from "./hooks/useTonConnect";
+import { useCounterContract } from "./hooks/useCounterContract";
 
 function App() {
   const { connected } = useTonConnect();
@@ -9,22 +9,22 @@ function App() {
   const WebApp = window.Telegram.WebApp;
 
   return (
-    <div className='App'>
-      <div className='Container'>
+    <div className="App">
+      <div className="Container">
         <TonConnectButton />
 
-        <div className='Card'>
+        <div className="Card">
           <b>1.Counter Address</b>
-          <div className='Hint'>{address?.slice(0, 30) + '...'}</div>
+          <div className="Hint">{address?.slice(0, 30) + "..."}</div>
         </div>
 
-        <div className='Card'>
+        <div className="Card">
           <b>2.Counter Value</b>
-          <div>{value ?? 'Loading...'}</div>
+          <div>{value ?? "Loading..."}</div>
         </div>
 
         <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
+          className={`Button ${connected ? "Active" : "Disabled"}`}
           onClick={() => {
             sendIncrement();
           }}
@@ -41,35 +41,35 @@ function App() {
 
             // alert("app.platform--" + WebApp.platform);
             // WebApp.openTelegramLink('https://t.me/addlist/IzUQdZ2EPyNiOTFl')
-            
-            const callback = () =>{
+
+            const callback = () => {
               alert("biometricManager.isInited--" + biometricManager.isInited);
               if (biometricManager.isBiometricAvailable) {
                 alert("设备支持生物识别");
                 console.log("设备支持生物识别");
-
-            } else {
+              } else {
                 alert("设备不支持生物识别");
                 console.log("设备不支持生物识别");
-            }
-  
-            alert("biometricManager.deviceId:" + biometricManager.deviceId);
-            console.log("biometricManager.deviceId:", biometricManager.deviceId);
+              }
 
-            }
-            const biometricManager = Telegram.WebApp.BiometricManager.init(callback);
-
+              alert("biometricManager.deviceId:" + biometricManager.deviceId);
+              console.log(
+                "biometricManager.deviceId:",
+                biometricManager.deviceId
+              );
+            };
+            const biometricManager =
+              Telegram.WebApp.BiometricManager.init(callback);
           }}
         >
           TEST
         </a>
-
       </div>
     </div>
   );
 }
 
-export default App
+export default App;
 
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
