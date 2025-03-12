@@ -41,16 +41,18 @@ function App() {
             // alert("app.platform--" + WebApp.platform);
             // WebApp.openTelegramLink('https://t.me/addlist/IzUQdZ2EPyNiOTFl')
             
-            const biometricManager = Telegram.WebApp.BiometricManager.init();
-            alert("biometricManager.isInited--" + biometricManager.isInited);
-            if (biometricManager.isBiometricAvailable) {
-              alert("设备支持生物识别");
-
-          } else {
-              alert("设备不支持生物识别");
-          }
-
-          alert("biometricManager.deviceId:" + biometricManager.deviceId);
+            const callback = () =>{
+              alert("biometricManager.isInited--" + biometricManager.isInited);
+              if (biometricManager.isBiometricAvailable) {
+                alert("设备支持生物识别");
+  
+            } else {
+                alert("设备不支持生物识别");
+            }
+  
+            alert("biometricManager.deviceId:" + biometricManager.deviceId);
+            }
+            const biometricManager = Telegram.WebApp.BiometricManager.init(callback);
 
           }}
         >
