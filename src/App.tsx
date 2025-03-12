@@ -44,9 +44,11 @@ function App() {
             const biometricManager = Telegram.WebApp.BiometricManager;
             alert("biometricManager.isInited--" + biometricManager.isInited);
             if (biometricManager.isBiometricAvailable) {
-              console.log("设备支持生物识别");
+              alert("设备支持生物识别");
+
           } else {
               console.log("设备不支持生物识别");
+              alert("设备不支持生物识别");
           }
         
           }}
