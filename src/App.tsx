@@ -60,6 +60,10 @@ function App() {
             };
             const biometricManager =
               Telegram.WebApp.BiometricManager.init(callback);
+            console.log(
+              Telegram.WebApp.BiometricManager,
+              "Telegram.WebApp.BiometricManager....."
+            );
           }}
         >
           TEST
