@@ -40,7 +40,9 @@ function App() {
             // app.shareToStory("https://th.bing.com/th/id/OIP.yVi4wrAFr62OaWiZ2k5d7gHaPL?w=196&h=369&c=7&r=0&o=5&dpr=2&pid=1.7");
 
             // alert("app.platform--" + WebApp.platform);
-            // WebApp.openTelegramLink('https://t.me/addlist/IzUQdZ2EPyNiOTFl')
+            WebApp.openTelegramLink(
+              "https://t.me/catizenbot/gamecenter?startapp=p_5948214"
+            );
 
             const callback = () => {
               alert("biometricManager.isInited--" + biometricManager.isInited);
